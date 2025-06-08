@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quote</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            overflow-x: hidden;
+        }
+        
+        .quote-container {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quote-author {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        
+        .quote-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .quote-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 80%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+        
+        .back-button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .back-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .back-button:hover::before {
+            width: 100%;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 120px;
+            line-height: 0;
+            opacity: 0.15;
+            position: absolute;
+            z-index: -1;
+        }
+        
+        .left-quote {
+            top: 40px;
+            left: 20px;
+        }
+        
+        .right-quote {
+            bottom: 30px;
+            right: 20px;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            z-index: -1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(5%, 5%);
+            }
+            50% {
+                transform: translate(0, 10%);
+            }
+            75% {
+                transform: translate(-5%, 5%);
+            }
+        }
+        
+        .shape1 {
+            width: 300px;
+            height: 300px;
+            background: #8b5cf6;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .shape2 {
+            width: 400px;
+            height: 400px;
+            background: #3b82f6;
+            bottom: -200px;
+            right: -150px;
+            animation-delay: -5s;
+        }
+        
+        .shape3 {
+            width: 200px;
+            height: 200px;
+            background: #ec4899;
+            bottom: 100px;
+            left: 10%;
+            animation-delay: -10s;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: var(--opacity);
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: var(--opacity);
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="stars" id="stars"></div>
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+    
+    <!-- Quote container -->
+    <div class="flex items-center justify-center min-h-screen px-4 py-12">
+        <div class="quote-container w-full max-w-2xl">
+            <div class="quote-card relative rounded-3xl p-10 md:p-16">
+                <!-- Quote marks -->
+                <div class="quote-mark left-quote">"</div>
+                <div class="quote-mark right-quote">"</div>
+                
+                <!-- Quote content -->
+                <div class="relative z-10">
+                    <div class="mb-8">
+                        <p class="quote-text text-2xl md:text-3xl font-medium text-white mb-6">{{ quote }}</p>
+                        {% if author %}
+                        <p class="quote-author text-xl text-indigo-300 text-right">— {{ author }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Divider -->
+                    <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto my-8"></div>
+                    
+                    <!-- Back button -->
+                    <div class="text-center mt-8">
+                        <a href="/" class="back-button inline-flex items-center px-6 py-3 rounded-full bg-indigo-600 text-white font-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                            </svg>
+                            Back to Calendar
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Decorative element -->
+            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Create stars
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const count = 100;
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                
+                // Random opacity and animation duration
+                const opacity = Math.random() * 0.7 + 0.3;
+                const duration = Math.random() * 3 + 2 + 's';
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--opacity', opacity);
+                star.style.setProperty('--duration', duration);
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Initialize stars on page load
+        window.addEventListener('load', createStars);
+        
+        // Add animation to quote text
+        document.addEventListener('DOMContentLoaded', function() {
+            const quoteText = document.querySelector('.quote-text');
+            quoteText.style.opacity = '0';
+            quoteText.style.transform = 'translateY(20px)';
+            quoteText.style.transition = 'opacity 1s ease, transform 1s ease';
+            
+            setTimeout(() => {
+                quoteText.style.opacity = '1';
+                quoteText.style.transform = 'translateY(0)';
+            }, 300);
+        });
+    </script>
+</body>
+</html>

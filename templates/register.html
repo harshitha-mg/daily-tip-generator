@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, #4B0082, #800080, #9400D3, #4169E1);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -2;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float var(--duration) ease-in-out infinite;
+            opacity: var(--opacity);
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(var(--y-offset)) translateX(var(--x-offset));
+            }
+            50% {
+                transform: translateY(0) translateX(var(--x-offset-alt));
+            }
+            75% {
+                transform: translateY(calc(var(--y-offset) * -1)) translateX(0);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+        
+        .register-card {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .register-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .input-field {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        
+        .register-btn {
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.6);
+        }
+        
+        .login-link {
+            transition: all 0.3s ease;
+        }
+        
+        .login-link:hover {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.3) 0%, rgba(79, 70, 229, 0) 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+        }
+        
+        .geometric {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transform: rotate(45deg);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="glow" style="top: 30%; left: 15%;"></div>
+    <div class="glow" style="top: 50%; left: 75%;"></div>
+    
+    <div class="geometric" style="width: 100px; height: 100px; top: 15%; left: 20%;"></div>
+    <div class="geometric" style="width: 150px; height: 150px; top: 70%; left: 80%;"></div>
+    <div class="geometric" style="width: 80px; height: 80px; top: 80%; left: 10%;"></div>
+    
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="register-card w-full max-w-md p-8 rounded-2xl">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">Create Account</h2>
+                <p class="text-indigo-200">Join us and start your journey</p>
+            </div>
+            
+            <form method="post" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-indigo-200 mb-2">Username</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" name="username" id="username" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Choose a username">
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-indigo-200 mb-2">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="password" name="password" id="password" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Create a strong password">
+                    </div>
+                </div>
+                
+                <div>
+                    <button type="submit" class="register-btn w-full py-3 px-4 rounded-lg text-white font-medium flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                        Create Account
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-8 text-center">
+                <a href="/login" class="login-link text-indigo-200 hover:text-white">
+                    Already have an account? <span class="font-semibold">Login</span>
+                </a>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-indigo-800/30">
+                <p class="text-xs text-center text-indigo-300">By registering, you agree to our Terms of Service and Privacy Policy</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const count = 30;
+            
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 8 + 2;
+                
+                // Random opacity and animation properties
+                const opacity = Math.random() * 0.5 + 0.1;
+                const duration = Math.random() * 15 + 10 + 's';
+                const yOffset = Math.random() * 100 + 50 + 'px';
+                const xOffset = Math.random() * 100 - 50 + 'px';
+                const xOffsetAlt = Math.random() * 100 - 50 + 'px';
+                
+                particle.style.left = `${x}%`;
+                particle.style.top = `${y}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.setProperty('--opacity', opacity);
+                particle.style.setProperty('--duration', duration);
+                particle.style.setProperty('--y-offset', yOffset);
+                particle.style.setProperty('--x-offset', xOffset);
+                particle.style.setProperty('--x-offset-alt', xOffsetAlt);
+                
+                particles.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles on page load
+        window.addEventListener('load', createParticles);
+    </script>
+</body>
+</html>

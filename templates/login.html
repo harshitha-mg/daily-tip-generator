@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, #00008B, #4B0082, #800080, #9400D3);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -2;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: var(--opacity);
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: var(--opacity);
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+        
+        .login-card {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .input-field {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        
+        .login-btn {
+            background: linear-gradient(90deg, #9333ea, #4f46e5);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.6);
+        }
+        
+        .register-link {
+            transition: all 0.3s ease;
+        }
+        
+        .register-link:hover {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, rgba(147, 51, 234, 0) 70%);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(50px, -50px);
+            }
+            50% {
+                transform: translate(0, -100px);
+            }
+            75% {
+                transform: translate(-50px, -50px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="stars" id="stars"></div>
+    
+    <div class="glow" style="top: 20%; left: 20%;"></div>
+    <div class="glow" style="top: 60%; left: 70%;"></div>
+    
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="login-card w-full max-w-md p-8 rounded-2xl">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">Welcome Back</h2>
+                <p class="text-indigo-200">Sign in to continue your journey</p>
+            </div>
+            
+            <form method="post" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-indigo-200 mb-2">Username</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" name="username" id="username" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Enter your username">
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-indigo-200 mb-2">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="password" name="password" id="password" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Enter your password">
+                    </div>
+                </div>
+                
+                <div>
+                    <button type="submit" class="login-btn w-full py-3 px-4 rounded-lg text-white font-medium">
+                        Sign In
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-8 text-center">
+                <a href="/register" class="register-link text-indigo-200 hover:text-white">
+                    Don't have an account? <span class="font-semibold">Register</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create stars
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const count = 200;
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 3;
+                
+                // Random opacity and animation duration
+                const opacity = Math.random() * 0.8 + 0.2;
+                const duration = Math.random() * 3 + 2 + 's';
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--opacity', opacity);
+                star.style.setProperty('--duration', duration);
+                
+                stars.appendChild(star);
+            }
+        }
+        
+        // Initialize stars on page load
+        window.addEventListener('load', createStars);
+    </script>
+</body>
+</html>
