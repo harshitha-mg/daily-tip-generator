@@ -150,37 +150,43 @@
                 <p class="text-indigo-200">Sign in to continue your journey</p>
             </div>
             
-            <form method="post" class="space-y-6">
-                <div>
-                    <label for="username" class="block text-sm font-medium text-indigo-200 mb-2">Username</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="text" name="username" id="username" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Enter your username">
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="password" class="block text-sm font-medium text-indigo-200 mb-2">Password</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="password" name="password" id="password" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Enter your password">
-                    </div>
-                </div>
-                
-                <div>
-                    <button type="submit" class="login-btn w-full py-3 px-4 rounded-lg text-white font-medium">
-                        Sign In
-                    </button>
-                </div>
-            </form>
+            <form method="post" class="space-y-6" onsubmit="return validateForm(event)">
+                {% if error %}
+    <p class="text-red-400 text-sm mt-1 text-center">{{ error }}</p>
+{% endif %}
+
+    <div>
+        <label for="username" class="block text-sm font-medium text-indigo-200 mb-2">Email</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <input type="email" name="username" id="username" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Enter your Gmail address">
+        </div>
+        <p id="emailError" class="text-red-400 text-sm mt-1 hidden">Please enter a valid Gmail address (must end with @gmail.com).</p>
+    </div>
+    
+    <div>
+        <label for="password" class="block text-sm font-medium text-indigo-200 mb-2">Password</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <input type="password" name="password" id="password" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Enter your password">
+        </div>
+        <p id="passwordError" class="text-red-400 text-sm mt-1 hidden">Password must be 5–8 characters long and include at least one number.</p>
+    </div>
+    
+    <div>
+        <button type="submit" class="login-btn w-full py-3 px-4 rounded-lg text-white font-medium">
+            Sign In
+        </button>
+    </div>
+</form>
             
             <div class="mt-8 text-center">
                 <a href="/register" class="register-link text-indigo-200 hover:text-white">
@@ -190,40 +196,42 @@
         </div>
     </div>
     
-    <script>
-        // Create stars
-        function createStars() {
-            const stars = document.getElementById('stars');
-            const count = 200;
-            
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                // Random position
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                // Random size
-                const size = Math.random() * 3;
-                
-                // Random opacity and animation duration
-                const opacity = Math.random() * 0.8 + 0.2;
-                const duration = Math.random() * 3 + 2 + 's';
-                
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.setProperty('--opacity', opacity);
-                star.style.setProperty('--duration', duration);
-                
-                stars.appendChild(star);
-            }
+    <!-- ADD THIS SCRIPT BEFORE THE CLOSING </body> TAG -->
+<script>
+    function validateForm(event) {
+        const emailInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        let isValid = true;
+
+        // Validate Gmail address
+        if (!email.endsWith('@gmail.com')) {
+            emailError.classList.remove('hidden');
+            isValid = false;
+        } else {
+            emailError.classList.add('hidden');
         }
-        
-        // Initialize stars on page load
-        window.addEventListener('load', createStars);
-    </script>
+
+        // Validate password (5-8 chars, at least one digit)
+        const passwordValid = password.length >= 5 && password.length <= 8 && /\d/.test(password);
+        if (!passwordValid) {
+            passwordError.classList.remove('hidden');
+            isValid = false;
+        } else {
+            passwordError.classList.add('hidden');
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+
+        return isValid;
+    }
+</script>
 </body>
 </html>

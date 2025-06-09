@@ -1,273 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inspirational Quote</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            overflow-x: hidden;
-        }
-        
-        .quote-container {
-            position: relative;
-            z-index: 10;
-        }
-        
-        .quote-text {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.6;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .quote-author {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
-        
-        .quote-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-        }
-        
-        .quote-card::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 80%);
-            transform: rotate(45deg);
-            pointer-events: none;
-        }
-        
-        .back-button {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .back-button::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            z-index: -1;
-        }
-        
-        .back-button:hover::before {
-            width: 100%;
-        }
-        
-        .back-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .quote-mark {
-            font-family: 'Playfair Display', serif;
-            font-size: 120px;
-            line-height: 0;
-            opacity: 0.15;
-            position: absolute;
-            z-index: -1;
-        }
-        
-        .left-quote {
-            top: 40px;
-            left: 20px;
-        }
-        
-        .right-quote {
-            bottom: 30px;
-            right: 20px;
-        }
-        
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.4;
-            z-index: -1;
-            animation: float 15s infinite ease-in-out;
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(5%, 5%);
-            }
-            50% {
-                transform: translate(0, 10%);
-            }
-            75% {
-                transform: translate(-5%, 5%);
-            }
-        }
-        
-        .shape1 {
-            width: 300px;
-            height: 300px;
-            background: #8b5cf6;
-            top: -100px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-        
-        .shape2 {
-            width: 400px;
-            height: 400px;
-            background: #3b82f6;
-            bottom: -200px;
-            right: -150px;
-            animation-delay: -5s;
-        }
-        
-        .shape3 {
-            width: 200px;
-            height: 200px;
-            background: #ec4899;
-            bottom: 100px;
-            left: 10%;
-            animation-delay: -10s;
-        }
-        
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-        
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-            opacity: var(--opacity);
-        }
-        
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: var(--opacity);
-            }
-            50% {
-                opacity: 0.2;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Inspiration for {{ task }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(125deg, #4158D0, #C850C0, #FFCC70);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .glass-card:hover::before {
+      left: 100%;
+    }
+
+    .quote-box {
+      font-family: 'Playfair Display', serif;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .quote-author {
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+
+    .fade-up.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gradient-line {
+      height: 4px;
+      width: 80px;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      border-radius: 9999px;
+      margin: 1rem auto;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .task-display {
+      position: relative;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .icon-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: linear-gradient(45deg, #8b5cf6, #ec4899);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-btn {
+      background: linear-gradient(45deg, #8b5cf6, #ec4899);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: white;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+      animation: sparkle 2s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+    
+    .mood-tracker {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 5xl;
+    }
+
+    .mood-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .mood-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      padding: 0.5rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mood-btn:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .mood-btn.selected {
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      transform: scale(1.1);
+    }
+    
+    .mood-message {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      min-height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease;
+    }
+    
+    .date-display {
+      position: absolute;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <!-- Background elements -->
-    <div class="stars" id="stars"></div>
-    <div class="floating-shape shape1"></div>
-    <div class="floating-shape shape2"></div>
-    <div class="floating-shape shape3"></div>
-    
-    <!-- Quote container -->
-    <div class="flex items-center justify-center min-h-screen px-4 py-12">
-        <div class="quote-container w-full max-w-2xl">
-            <div class="quote-card relative rounded-3xl p-10 md:p-16">
-                <!-- Quote marks -->
-                <div class="quote-mark left-quote">"</div>
-                <div class="quote-mark right-quote">"</div>
-                
-                <!-- Quote content -->
-                <div class="relative z-10">
-                    <div class="mb-8">
-                        <p class="quote-text text-2xl md:text-3xl font-medium text-white mb-6">{{ quote }}</p>
-                        {% if author %}
-                        <p class="quote-author text-xl text-indigo-300 text-right">— {{ author }}</p>
-                        {% endif %}
-                    </div>
-                    
-                    <!-- Divider -->
-                    <div class="w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto my-8"></div>
-                    
-                    <!-- Back button -->
-                    <div class="text-center mt-8">
-                        <a href="/" class="back-button inline-flex items-center px-6 py-3 rounded-full bg-indigo-600 text-white font-medium">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                            </svg>
-                            Back to Calendar
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Decorative element -->
-            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
-        </div>
+  <!-- Animated background particles -->
+  <div id="particles"></div>
+  
+  <!-- Date display -->
+  <div class="date-display fade-up" id="current-date">Today's Date</div>
+
+  <!-- Task display -->
+  <div class="task-display fade-up text-xl md:text-2xl">
+    <span class="floating mr-2">✨</span>
+    Inspiration for: {{ task }}
+    <span class="floating ml-2">✨</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full">
+    <!-- Tip Box -->
+    <div class="glass-card fade-up relative">
+      <div class="icon-badge">💡</div>
+      <div class="card-title">
+        <span class="floating">💡</span> Daily Tip
+      </div>
+      <p class="text-white text-lg md:text-xl leading-relaxed">{{ tip }}</p>
+      <div class="gradient-line"></div>
+    </div>
+
+    <!-- Quote Box -->
+    <div class="glass-card fade-up quote-box relative">
+      <div class="icon-badge">🌟</div>
+      <div class="card-title">
+        <span class="floating">📝</span> Inspirational Quote
+      </div>
+      <p class="text-white text-2xl md:text-3xl font-semibold mb-6">"{{ quote }}"</p>
+      {% if author %}
+      <p class="quote-author text-white text-right text-lg md:text-xl">— {{ author }}</p>
+      {% endif %}
+      <div class="gradient-line"></div>
     </div>
     
-    <script>
-        // Create stars
-        function createStars() {
-            const stars = document.getElementById('stars');
-            const count = 100;
-            
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                // Random position
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                // Random size
-                const size = Math.random() * 2 + 1;
-                
-                // Random opacity and animation duration
-                const opacity = Math.random() * 0.7 + 0.3;
-                const duration = Math.random() * 3 + 2 + 's';
-                
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.setProperty('--opacity', opacity);
-                star.style.setProperty('--duration', duration);
-                
-                stars.appendChild(star);
-            }
-        }
+    <!-- Mood Tracker -->
+    <div class="glass-card fade-up col-span-1 md:col-span-2 relative">
+      <div class="icon-badge">😊</div>
+      <div class="card-title">
+        <span class="floating">🌈</span> Today's Mood Tracker
+      </div>
+      <p class="text-white text-lg mb-4">How are you feeling today?</p>
+      <div class="mood-buttons">
+        <div class="mood-btn" data-mood="amazing">😁</div>
+        <div class="mood-btn" data-mood="happy">😊</div>
+        <div class="mood-btn" data-mood="good">🙂</div>
+        <div class="mood-btn" data-mood="okay">😐</div>
+        <div class="mood-btn" data-mood="meh">😕</div>
+        <div class="mood-btn" data-mood="sad">😔</div>
+        <div class="mood-btn" data-mood="tired">😴</div>
+      </div>
+      <div class="mood-message">
+        <p class="text-white text-lg" id="mood-message">Select your mood to get a personalized message</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back button -->
+  <div class="mt-8 fade-up">
+    <a href="/" class="action-btn">
+      <span class="mr-2">←</span> Back to Tasks
+    </a>
+  </div>
+
+  <script>
+    // Current date
+    function updateDate() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
+    }
+    
+    // Animate on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateDate();
+      
+      document.querySelectorAll('.fade-up').forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add('active');
+        }, i * 300);
+      });
+      
+      // Create background particles
+      createParticles();
+      
+      // Create sparkles
+      createSparkles();
+    });
+    
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const colors = ['#8b5cf6', '#ec4899', '#ffffff', '#c4b5fd', '#f9a8d4'];
+      
+      for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
         
-        // Initialize stars on page load
-        window.addEventListener('load', createStars);
+        // Random properties
+        const size = Math.random() * 10 + 5;
+        const color = colors[Math.floor(Math.random() * colors.length)];
         
-        // Add animation to quote text
-        document.addEventListener('DOMContentLoaded', function() {
-            const quoteText = document.querySelector('.quote-text');
-            quoteText.style.opacity = '0';
-            quoteText.style.transform = 'translateY(20px)';
-            quoteText.style.transition = 'opacity 1s ease, transform 1s ease';
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.background = color;
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        
+        // Animation
+        particle.style.animation = `floating ${Math.random() * 6 + 4}s ease-in-out infinite`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Create sparkle effects
+    function createSparkles() {
+      const cards = document.querySelectorAll('.glass-card');
+      
+      cards.forEach(card => {
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
             
+            // Position randomly within the card
+            const x = Math.random() * card.offsetWidth;
+            const y = Math.random() * card.offsetHeight;
+            
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            sparkle.style.animationDelay = `${Math.random() * 2}s`;
+            
+            card.appendChild(sparkle);
+            
+            // Remove after animation completes
             setTimeout(() => {
-                quoteText.style.opacity = '1';
-                quoteText.style.transform = 'translateY(0)';
-            }, 300);
-        });
-    </script>
+              sparkle.remove();
+            }, 2000);
+          }, i * 3000); // Create a new sparkle every 3 seconds
+        }
+      });
+      
+      // Continue creating sparkles
+      setInterval(createSparkles, 15000);
+    }
+    
+    // Mood messages - multiple messages for each mood
+    const moodMessages = {
+      amazing: [
+        "That's fantastic! Your positive energy will help you accomplish great things today!",
+        "Wonderful! When you're feeling this good, share your energy with others around you!",
+        "Amazing! This is the perfect time to tackle that challenging task you've been putting off.",
+        "Brilliant! Your positive mindset will make today exceptionally productive."
+      ],
+      happy: [
+        "Happiness looks gorgeous on you! Keep that smile shining bright!",
+        "Your happy energy is contagious - spread it wherever you go today!",
+        "A happy heart makes for a productive mind. You're set up for success today!",
+        "That happiness is your superpower today. Use it wisely!"
+      ],
+      good: [
+        "Great to hear you're doing well! Keep that positive momentum going!",
+        "Good moods create good outcomes. You're on the right track!",
+        "Feeling good is the first step to doing good. What will you accomplish today?",
+        "A good mood is the perfect foundation for a productive day ahead."
+      ],
+      okay: [
+        "Sometimes okay is perfectly fine. Take things one step at a time today.",
+        "Okay is a good starting point. You can build from here!",
+        "Being okay means you have balance. Use that stability to your advantage.",
+        "Okay days often turn into great days with just a little push in the right direction."
+      ],
+      meh: [
+        "Everyone has those 'meh' days. Be gentle with yourself and do something that brings you joy.",
+        "When feeling 'meh', focus on small wins to build momentum.",
+        "A 'meh' mood is just a temporary state. It will pass with time.",
+        "Try changing your environment or taking a short walk to shift your energy."
+      ],
+      sad: [
+        "I'm sorry you're feeling down. Remember that this feeling is temporary and tomorrow is a new day.",
+        "It's okay to feel sad sometimes. Honor your emotions but don't let them define your day.",
+        "Sadness is part of being human. Reach out to someone who makes you feel supported.",
+        "On sad days, be extra kind to yourself. What small comfort can you give yourself today?"
+      ],
+      tired: [
+        "Listen to your body when you're tired. Maybe you need more rest today.",
+        "Being tired is your body's way of asking for a break. Can you find time for a short nap?",
+        "Even when tired, focus on one small task at a time. Progress is still progress.",
+        "Tiredness is temporary. Prioritize self-care today and you'll bounce back stronger."
+      ]
+    };
+    
+    // Mood buttons
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Remove selected class from all buttons
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+        
+        // Add selected class to clicked button
+        this.classList.add('selected');
+        
+        // Update message
+        const mood = this.getAttribute('data-mood');
+        const messageElement = document.getElementById('mood-message');
+        const messages = moodMessages[mood];
+        
+        // Select a random message for this mood
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        
+        // Animate the message change
+        messageElement.style.opacity = 0;
+        setTimeout(() => {
+          messageElement.textContent = randomMessage;
+          messageElement.style.opacity = 1;
+        }, 300);
+        
+        // Save mood to localStorage
+        localStorage.setItem('lastMood', mood);
+        localStorage.setItem('lastMoodTime', new Date().getTime());
+      });
+    });
+    
+    // Check if user selected a mood recently (within the last 24 hours)
+    const lastMood = localStorage.getItem('lastMood');
+    const lastMoodTime = localStorage.getItem('lastMoodTime');
+    const now = new Date().getTime();
+    const oneDayMs = 24 * 60 * 60 * 1000;
+    
+    if (lastMood && lastMoodTime && (now - lastMoodTime < oneDayMs)) {
+      // Auto-select the last mood if it was within 24 hours
+      const moodBtn = document.querySelector(`.mood-btn[data-mood="${lastMood}"]`);
+      if (moodBtn) {
+        setTimeout(() => {
+          moodBtn.click();
+        }, 1500); // Wait a bit after page load for a better UX
+      }
+    }
+  </script>
 </body>
 </html>

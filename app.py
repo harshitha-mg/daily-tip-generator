@@ -5,6 +5,7 @@ from datetime import datetime
 from calendar import monthrange, TextCalendar
 import calendar
 import random
+import re
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
@@ -73,18 +74,25 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
-        user = User.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id
-            return redirect(url_for('index'))
-        else:
-            return "Invalid credentials"
+        # Check password format (5–8 chars and at least one digit)
+        password_format_valid = 5 <= len(password) <= 8 and re.search(r'\d', password)
 
-    return render_template('login.html')
+        if not password_format_valid:
+            error = "Password must be 5–8 characters long and include at least one number."
+        else:
+            user = User.query.filter_by(username=username).first()
+            if user and check_password_hash(user.password, password):
+                session['user_id'] = user.id
+                return redirect(url_for('index'))
+            else:
+                error = "Incorrect email or password."
+
+    return render_template('login.html', error=error)
 
 
 @app.route('/logout')

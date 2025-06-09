@@ -178,29 +178,30 @@
             
             <form method="post" class="space-y-6">
                 <div>
-                    <label for="username" class="block text-sm font-medium text-indigo-200 mb-2">Username</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="text" name="username" id="username" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Choose a username">
-                    </div>
-                </div>
+    <label for="email" class="block text-sm font-medium text-indigo-200 mb-2">Email</label>
+    <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M2.94 6.94A1.5 1.5 0 013.5 6h13a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0116.5 18h-13A1.5 1.5 0 012 16.5v-9c0-.4.16-.78.44-1.06zM3.5 8v8h13V8l-6.5 4L3.5 8zm6.5 2.5L17 6H3l7 4.5z" clip-rule="evenodd"/>
+            </svg>
+        </div>
+        <input type="email" name="email" id="email" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Enter your @gmail.com email">
+    </div>
+    <p id="emailError" class="text-sm text-red-400 mt-1 hidden"></p>
+</div>
                 
                 <div>
-                    <label for="password" class="block text-sm font-medium text-indigo-200 mb-2">Password</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="password" name="password" id="password" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Create a strong password">
-                    </div>
-                </div>
-                
+    <label for="password" class="block text-sm font-medium text-indigo-200 mb-2">Password</label>
+    <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <input type="password" name="password" id="password" required class="input-field block w-full pl-10 pr-3 py-3 rounded-lg focus:outline-none" placeholder="Create a strong password">
+    </div>
+    <p id="passwordError" class="text-sm text-red-400 mt-1 hidden"></p>
+</div>
                 <div>
                     <button type="submit" class="register-btn w-full py-3 px-4 rounded-lg text-white font-medium flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -224,45 +225,38 @@
     </div>
     
     <script>
-        // Create floating particles
-        function createParticles() {
-            const particles = document.getElementById('particles');
-            const count = 30;
-            
-            for (let i = 0; i < count; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random position
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                // Random size
-                const size = Math.random() * 8 + 2;
-                
-                // Random opacity and animation properties
-                const opacity = Math.random() * 0.5 + 0.1;
-                const duration = Math.random() * 15 + 10 + 's';
-                const yOffset = Math.random() * 100 + 50 + 'px';
-                const xOffset = Math.random() * 100 - 50 + 'px';
-                const xOffsetAlt = Math.random() * 100 - 50 + 'px';
-                
-                particle.style.left = `${x}%`;
-                particle.style.top = `${y}%`;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.setProperty('--opacity', opacity);
-                particle.style.setProperty('--duration', duration);
-                particle.style.setProperty('--y-offset', yOffset);
-                particle.style.setProperty('--x-offset', xOffset);
-                particle.style.setProperty('--x-offset-alt', xOffsetAlt);
-                
-                particles.appendChild(particle);
-            }
+    // Form validation
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        let valid = true;
+
+        // Reset error states
+        emailError.classList.add('hidden');
+        passwordError.classList.add('hidden');
+
+        // Email must end with @gmail.com
+        if (!email.endsWith('@gmail.com')) {
+            emailError.textContent = "Email must end with @gmail.com";
+            emailError.classList.remove('hidden');
+            valid = false;
         }
-        
-        // Initialize particles on page load
-        window.addEventListener('load', createParticles);
-    </script>
+
+        // Password between 5 and 8 characters and at least one digit
+        const digitPattern = /\d/;
+        if (password.length < 5 || password.length > 8 || !digitPattern.test(password)) {
+            passwordError.textContent = "Password must be 5-8 characters and include at least one digit.";
+            passwordError.classList.remove('hidden');
+            valid = false;
+        }
+
+        if (!valid) {
+            e.preventDefault(); // Stop form submission
+        }
+    });
+</script>
 </body>
 </html>
