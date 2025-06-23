@@ -214,11 +214,18 @@
     </div>
     <script>
       // Disable past dates in date input (basic UX enhancement)
-      const dateInput = document.getElementById('task_date');
-      if (dateInput) {
-          const today = new Date().toISOString().split('T')[0];
-          dateInput.setAttribute('min', today);
-      }
+      const taskDate = document.getElementById("task_date");
+const taskTime = document.getElementById("task_time");
+
+taskDate.addEventListener('change', () => {
+    const selectedDate = new Date(taskDate.value);
+    const now = new Date();
+    if (selectedDate.toDateString() === now.toDateString()) {
+        taskTime.min = now.toTimeString().slice(0, 5); // Set min time for today
+    } else {
+        taskTime.removeAttribute('min');
+    }
+});
 
       // Optional: You can also add JS validation for time if date is today to prevent past times.
       // But backend validation (already done) is the main protection.

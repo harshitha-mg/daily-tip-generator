@@ -1,11 +1,12 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from calendar import monthrange, TextCalendar
 import calendar
 import random
 import re
+from pytz import timezone
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
@@ -107,29 +108,42 @@ def add_task():
     task_time = request.form['task_time']
     description = request.form['description']
 
-    # Combine date and time to a datetime object
+    # Combine date and time into a datetime string
     task_datetime_str = f"{task_date} {task_time}"
-    task_datetime = datetime.strptime(task_datetime_str, "%Y-%m-%d %H:%M")
+    
+    # Define your local timezone (e.g., India Standard Time)
+    local_tz = timezone('Asia/Kolkata')  # Change if your location is different
 
-    now = datetime.now()
+    try:
+        # Parse and localize task datetime
+        naive_task_datetime = datetime.strptime(task_datetime_str, "%Y-%m-%d %H:%M")
+        task_datetime = local_tz.localize(naive_task_datetime)
 
-    # Check if the task datetime is in the past
-    if task_datetime < now:
-        # Optionally flash a message or return an error page
-        from flask import flash
-        flash("Cannot add a task in the past. Please select a valid date and time.", "error")
+        # Get current time in the same timezone
+        now = datetime.now(local_tz)
+
+        # Compare task time with now
+        if task_datetime < now:
+            flash("Cannot add a task in the past. Please select a valid date and time.", "error")
+            return redirect(url_for('index'))
+
+        # Create and save the task
+        new_task = Task(
+            user_id=session['user_id'],
+            task_name=task_name,
+            task_date=task_date,
+            task_time=task_time,
+            description=description
+        )
+        db.session.add(new_task)
+        db.session.commit()
+
+        flash("Task added successfully!", "success")
         return redirect(url_for('index'))
 
-    new_task = Task(
-        user_id=session['user_id'],
-        task_name=task_name,
-        task_date=task_date,
-        task_time=task_time,
-        description=description
-    )
-    db.session.add(new_task)
-    db.session.commit()
-    return redirect(url_for('index'))
+    except Exception as e:
+        flash(f"An error occurred: {str(e)}", "error")
+        return redirect(url_for('index'))
 
 
 @app.route('/generate_today_tip_quote', methods=['POST'])
